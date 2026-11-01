@@ -1,0 +1,5 @@
+-r requirements.txt
+-r requirements-stt.txt
+-r requirements-semantic.txt
+-r requirements-tts.txt
+-r requirements-research.txt

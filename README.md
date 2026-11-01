@@ -1,0 +1,120 @@
+# CoopReady AI
+
+เว็บแอปเตรียมความพร้อมสหกิจศึกษา ช่วยวิเคราะห์ Resume เทียบ Role Brief หรือ JD ฝึกสัมภาษณ์ และตอบคำถามจากฐานความรู้ที่ตรวจสอบแล้ว
+
+UI v1.4.3 · Backend API v1.4.1 · Next.js + FastAPI + SQLite
+
+## เปิดใช้งาน
+
+ต้องมี Python **3.11 หรือ 3.12** และ Node.js **22 ขึ้นไป** เปิดโฟลเดอร์ที่มี `launch.py` ใน VS Code แล้วใช้ Terminal:
+
+Windows:
+
+```powershell
+python launch.py
+```
+
+Linux หรือ macOS ที่ติดตั้ง Python รุ่นรองรับ:
+
+```bash
+python3 launch.py
+```
+
+หาก `python3` เป็นรุ่นอื่น ให้ใช้ `python3.12 launch.py` เมื่อติดตั้ง Python 3.12 ไว้แล้ว บน Linux ต้องมีโมดูล `venv` ของ Python รุ่นที่ใช้ด้วย
+
+ครั้งแรกต้องใช้อินเทอร์เน็ตเพื่อติดตั้งแพ็กเกจ ระบบสร้าง environment และไฟล์ตั้งค่าที่ขาดให้ รอข้อความเว็บไซต์พร้อม แล้วเปิด URL ที่ Terminal แสดง ปกติใช้ `http://127.0.0.1:3000` ส่วนพอร์ต Backend ปกติเป็น 8001 ตัวเปิดเลือกพอร์ตอื่นได้เมื่อพอร์ตเดิมไม่ว่าง กด Ctrl+C เพื่อหยุดระบบ
+
+หากขึ้น `can't open file ... launch.py` ให้ตรวจโฟลเดอร์ปัจจุบัน อาจมีโฟลเดอร์ซ้อนหลังแตก ZIP ต้องเข้าโฟลเดอร์ที่มี `launch.py` ก่อน
+
+## ความสามารถ
+
+- นำเข้า PDF ที่มีข้อความ, DOCX และ TXT พร้อมตรวจแก้ข้อความก่อนบันทึก
+- เปรียบเทียบทักษะกับ JD แสดง Matched และ Not Evidenced พร้อมหลักฐาน
+- เพิ่มข้อมูลบริษัทจาก Official URL หรือข้อความที่คัดลอกมา และค้นแหล่งข้อมูลผ่าน DDGS
+- ฝึกสัมภาษณ์ด้วยการพิมพ์หรือเสียง บันทึกคำตอบ ดูรายงาน และส่งออก JSON
+- ตอบ FAQ จากฐานความรู้ที่อนุมัติและยังไม่หมดอายุ พร้อมแหล่งอ้างอิง
+
+**Baseline** ใช้ TF-IDF, Keyword Match และคำถามคงที่ 5 ข้อ เริ่มทดลองแบบพิมพ์ได้โดยไม่ติดตั้ง Local AI
+
+**Proposed** ใช้ Qwen3 ผ่าน Ollama และ MiniLM/Chroma สำหรับงานที่เกี่ยวข้อง สัมภาษณ์ 5 คำถามหลักและ 2 คำถามต่อยอด ต้องติดตั้งโมเดลก่อน
+
+## ติดตั้ง AI เพิ่ม
+
+ติดตั้งและเปิด Ollama แยกต่างหาก แล้วดาวน์โหลดโมเดล:
+
+```text
+ollama pull qwen3:4b
+```
+
+หยุดเว็บก่อนติดตั้งส่วนเสริม บน Windows:
+
+```powershell
+python launch.py --install-ai semantic stt --prepare-models semantic stt
+python launch.py --install-ai tts
+python launch.py
+```
+
+บน Linux ใช้ `python3` แทน `python` เมื่อเป็นรุ่นที่รองรับ การติดตั้งแต่ละคำสั่งจะจบก่อน ต้องเปิด `launch.py` อีกครั้งเพื่อใช้เว็บ
+
+Piper ต้องมีไฟล์เสียง `.onnx` และ `.onnx.json` ที่ตรงภาษา และตั้ง `PIPER_MODEL` กับ `PIPER_LANGUAGE` ใน `backend/.env` เอง ไม่รวมไฟล์เสียงใน repository
+
+เสียงเป็นการพูดสลับรอบ: เริ่มอัด → หยุดและถอดเสียง → ตรวจข้อความ → ส่งคำตอบ ยังไม่ใช่เสียงแบบสตรีมสด
+
+## เอกสาร
+
+- [คู่มือระบบและฟังก์ชันทั้งหมด](docs/MANUAL_TH.md)
+- [วิธีติดตั้งและการใช้งานโดยละเอียด](README_TH.md)
+- [ตั้งค่าโมเดลและเสียง](docs/MODEL_SETUP_TH.md)
+- [วิธีเตรียมข้อมูลและประเมิน](docs/EVALUATION_PROTOCOL_TH.md)
+- [ผลทดสอบและข้อจำกัด](docs/TEST_REPORT_TH.md)
+- [ความสัมพันธ์กับสไลด์](docs/SLIDE_ALIGNMENT_TH.md)
+
+## โครงสร้าง
+
+| ตำแหน่ง | หน้าที่ |
+| --- | --- |
+| `launch.py` | เตรียม environment และเปิดทั้งสองเซิร์ฟเวอร์ |
+| `frontend/` | Next.js, React และเส้นทางส่งต่อ API |
+| `backend/` | FastAPI อัลกอริทึม โมเดล และฐานข้อมูล |
+| `data/` | ข้อมูลสมมติและแบบฟอร์ม FAQ |
+| `docs/` | คู่มือและผลตรวจที่บันทึกไว้ |
+| `scripts/` | HTTP smoke test |
+
+## ข้อมูลและสถานะการทดสอบ
+
+ระบบใช้โมเดลที่ฝึกมาแล้ว ยังไม่ได้ fine-tune ด้วย Dataset ของโครงงาน Resume และ JD ใช้เป็นบริบท ส่วน FAQ ใช้ค้นคืนแบบ RAG ข้อมูลตัวอย่างไม่ใช่ระเบียบมหาวิทยาลัยหรือข้อมูลประเมินนักศึกษาจริง
+
+มีผลทดสอบ Backend/launcher 57 รายการ, Frontend 7 รายการ และ production build ผ่านตามรายงานที่แนบ ผล Proposed ใน HTTP smoke ใช้ Ollama จำลอง ไม่ใช่ผลความแม่นยำ Qwen3 จริง ยังต้องทดสอบโมเดล ไมโครโฟน และ Piper จริงบนเครื่องสาธิต รวมถึงเก็บชุดประเมินตามแผน
+
+การเปิดพื้นฐานเคยทดสอบบน Linux ยังไม่รับประกันความเข้ากันได้ทุกเครื่องหรือผลทดสอบเต็มบน Windows/macOS
+
+## ส่งขึ้น GitHub
+
+แตก ZIP แล้วนำ **ไฟล์และโฟลเดอร์ภายในโฟลเดอร์โปรเจกต์** ขึ้น repository ให้ `README.md`, `launch.py`, `backend/` และ `frontend/` อยู่ระดับบนสุด ไม่อัปโหลด ZIP อย่างเดียว
+
+หากใช้หน้าเว็บไซต์ GitHub: เปิด repository → Add file → Upload files → ลากไฟล์และโฟลเดอร์ข้างต้น → ตรวจรายการ → Commit changes ทั้งนี้ควรใช้ Git ในเครื่องเพื่อให้ `.gitignore` ถูกใช้กับไฟล์ที่เกิดระหว่างใช้งาน หน้าอัปโหลดเว็บไม่ได้ใช้ `.gitignore` กรองไฟล์ให้
+
+ตัวอย่างใช้ Git จากโฟลเดอร์ที่มี `launch.py` สำหรับ repository ใหม่:
+
+```bash
+git init
+git add .
+git status
+```
+
+ตรวจรายการก่อน commit ว่าไม่มี `.env` ข้อมูลผู้ใช้ หรือโมเดล แล้วรัน:
+
+```bash
+git commit -m "Add CoopReady AI source and documentation"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+git push -u origin main
+```
+
+เปลี่ยน `YOUR_USERNAME/YOUR_REPOSITORY` เป็น repository ของตนเอง ตัวอย่างนี้สำหรับ remote ใหม่ที่ยังไม่มี commit หากมีประวัติเดิมให้ clone ก่อนแล้วคัดลอกซอร์สเข้าไป ไม่ใช้ force push ทับประวัติ
+
+## ไฟล์ที่ไม่รวม
+
+ไม่รวม `.env` ส่วนตัว ประวัติ SQLite ไฟล์เสียงจริง `.venv`, `node_modules`, `.next` หรือไฟล์โมเดล มีเฉพาะ `.env.example` เพื่อสร้างการตั้งค่าใหม่ ติดตั้งแพ็กเกจและดาวน์โหลดโมเดลบนเครื่องปลายทาง ไม่ย้าย environment จาก Windows ไป Linux
+
+ระบบต้นแบบผูกบริการกับ loopback และยังไม่มีระบบล็อกอิน จึงควรใช้ในเครื่อง การส่งซอร์สขึ้น GitHub ไม่ได้ทำให้เว็บหรือโมเดลเปิดใช้งานออนไลน์อัตโนมัติ

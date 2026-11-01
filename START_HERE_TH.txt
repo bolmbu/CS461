@@ -1,0 +1,10 @@
+CoopReady AI v1.4.3 — เริ่มใน VS Code Terminal
+1. ติดตั้ง Python 3.11/3.12 และ Node.js 22+ แล้วเปิด VS Code ใหม่
+2. แตก ZIP ลงโฟลเดอร์ใหม่ แล้ว File > Open Folder เลือกโฟลเดอร์ที่มี launch.py
+3. เปิด Terminal แล้วรัน: python launch.py
+   ถ้า Python ไม่ถูกเวอร์ชัน ใช้: py -3.12 launch.py
+4. รอ READY และเปิด URL ที่ Terminal แสดง ค้าง Terminal ไว้ระหว่างใช้งาน
+5. เริ่ม Baseline แบบพิมพ์ก่อน Proposed ต้องมี Ollama/Qwen3 และบางฟังก์ชันต้องมี MiniLM
+6. การพูดต้องติดตั้ง STT และการอ่านเสียงต้องเลือก Browser TTS หรือกำหนด Piper ก่อน
+อ่าน README_TH.md สำหรับคำสั่งติดตั้ง โมเดล และการย้ายประวัติ
+ไม่มีไฟล์ .bat และไม่มี API key / Cloud API ในแพ็กเกจนี้

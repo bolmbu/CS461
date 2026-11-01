@@ -1,0 +1,5 @@
+[
+ {"id":"synthetic-en-01","resume":"Built a backend with Python, FastAPI and GitHub.","role_brief":"Python, FastAPI, SQL, Git","matched_truth":["Python","FastAPI","Git"]},
+ {"id":"synthetic-en-02","resume":"Created a Python data processing script.","role_brief":"Python, SQL, Git","matched_truth":["Python"]},
+ {"id":"synthetic-th-03","resume":"พัฒนาโปรแกรมด้วยภาษาไพธอนเพื่อจัดการข้อมูล","role_brief":"Python","matched_truth":["Python"]}
+]

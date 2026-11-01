@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "checks": [
+    "website + same-origin bridge",
+    "resume text upload + session persistence",
+    "company schema + reasoning parser + source evidence; stub delay 0s",
+    "baseline interview 5 turns + report + duplicate prevention",
+    "proposed interview 7 turns + report + duplicate prevention",
+    "FAQ abstention + CER/WER + export + delete"
+  ],
+  "real_model": false,
+  "real_microphone": false,
+  "ui_version": "1.4.3",
+  "system": "linux"
+}

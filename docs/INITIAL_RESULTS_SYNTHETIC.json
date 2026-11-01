@@ -1,0 +1,82 @@
+{
+  "dataset": "3 explicitly synthetic author-labeled examples; not student data or independent human review",
+  "method": "TF-IDF cosine + keyword baseline",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "micro_metrics": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.8,
+    "f1": 0.888888888888889
+  },
+  "cases": [
+    {
+      "id": "synthetic-en-01",
+      "truth": [
+        "FastAPI",
+        "Git",
+        "Python"
+      ],
+      "predicted": [
+        "FastAPI",
+        "Git",
+        "Python"
+      ],
+      "metrics": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "elapsed_ms": 4.36
+    },
+    {
+      "id": "synthetic-en-02",
+      "truth": [
+        "Python"
+      ],
+      "predicted": [
+        "Python"
+      ],
+      "metrics": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "elapsed_ms": 1.723
+    },
+    {
+      "id": "synthetic-th-03",
+      "truth": [
+        "Python"
+      ],
+      "predicted": [],
+      "metrics": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "elapsed_ms": 0.991
+    }
+  ],
+  "observed_limitation": "Thai transliteration ไพธอน is not in the keyword dictionary; baseline misses Python.",
+  "not_tested": [
+    "Real student data",
+    "Proposed model accuracy",
+    "Real Qwen3",
+    "MiniLM/Chroma execution",
+    "Piper/faster-whisper audio",
+    "WER/CER on recorded audio",
+    "Human rubric agreement"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "launcher_ready": true,
+  "http_page": true,
+  "next_api_proxy": true,
+  "sqlite_resume_analysis": true,
+  "five_question_interview": true,
+  "report_persistence": true,
+  "faq_abstention": true,
+  "platform": "linux",
+  "real_ai_models_tested": false,
+  "browser_clicks_tested": false,
+  "fresh_install": true,
+  "clean_copy_in_space_and_thai_path": true
+}

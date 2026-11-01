@@ -1,0 +1,2 @@
+# Baseline direct dependency versions validated with this source release.
+-r requirements-tested.txt
